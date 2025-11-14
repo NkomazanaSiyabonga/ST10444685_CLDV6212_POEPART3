@@ -1,0 +1,50 @@
+[
+  {
+    "PartitionKey": "PRODUCTS",
+    "RowKey": "cb8bf048-77d3-4259-8df7-4d82c1bc606d",
+    "ProductId": "cb8bf048-77d3-4259-8df7-4d82c1bc606d",
+    "ProductName": "Wireless Headphones",
+    "Description": "High-quality wireless headphones with noise cancellation",
+    "Price": 99.99,
+    "StockAvailable": 25,
+    "ProductImageUrl": "",
+    "Timestamp": null,
+    "ETag": null
+  },
+  {
+    "PartitionKey": "PRODUCTS",
+    "RowKey": "ec59f73a-9c12-4436-9f5e-468d6445b62b",
+    "ProductId": "ec59f73a-9c12-4436-9f5e-468d6445b62b",
+    "ProductName": "Smartphone",
+    "Description": "Latest smartphone with advanced features",
+    "Price": 699.99,
+    "StockAvailable": 15,
+    "ProductImageUrl": "",
+    "Timestamp": null,
+    "ETag": null
+  },
+  {
+    "PartitionKey": "PRODUCTS",
+    "RowKey": "f3a8efb2-331e-46e2-9852-eef42b2aae8e",
+    "ProductId": "f3a8efb2-331e-46e2-9852-eef42b2aae8e",
+    "ProductName": "Raf Simmons Sneakers",
+    "Description": "kjgukugkj",
+    "Price": 299.99,
+    "StockAvailable": 2,
+    "ProductImageUrl": "/images/placeholder-product.jpg",
+    "Timestamp": null,
+    "ETag": null
+  },
+  {
+    "PartitionKey": "PRODUCTS",
+    "RowKey": "4eb3c8eb-7347-4813-9d65-4b6f9d9fc466",
+    "ProductId": "4eb3c8eb-7347-4813-9d65-4b6f9d9fc466",
+    "ProductName": "Maison Margiela Shoes",
+    "Description": "Luxury Leather Shoes",
+    "Price": 850.00,
+    "StockAvailable": 120,
+    "ProductImageUrl": "/images/placeholder-product.jpg",
+    "Timestamp": null,
+    "ETag": null
+  }
+]

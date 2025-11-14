@@ -1,0 +1,158 @@
+﻿@model ABCRetailers.Models.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "ABC Retailers - Home";
+}
+
+<div class="container">
+    <!-- Hero Section -->
+    <div class="text-center py-5 bg-light rounded-3 mb-5">
+        <h1 class="display-4 text-primary">Welcome to ABC Retailers</h1>
+        <p class="lead text-muted">Quality products, fast delivery, excellent service</p>
+
+        <!-- Quick Stats -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-boxes fa-2x text-primary mb-2"></i>
+                        <h4 class="text-dark">@Model.ProductCount</h4>
+                        <small class="text-muted">Products Available</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-2x text-success mb-2"></i>
+                        <h4 class="text-dark">@Model.CustomerCount</h4>
+                        <small class="text-muted">Happy Customers</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6 mb-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shipping-fast fa-2x text-warning mb-2"></i>
+                        <h4 class="text-dark">Fast</h4>
+                        <small class="text-muted">Delivery</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Featured Products -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Featured Products</h2>
+
+            @if (Model.FeaturedProducts.Any())
+            {
+                <div class="row">
+                    @foreach (var product in Model.FeaturedProducts)
+                    {
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 shadow-sm border-0">
+                                @if (!string.IsNullOrEmpty(product.ProductImageUrl))
+                                {
+                                    <img src="@product.ProductImageUrl" class="card-img-top" alt="@product.ProductName" style="height: 200px; object-fit: cover;">
+                                }
+                                else
+                                {
+                                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                        <i class="fas fa-image fa-3x text-muted"></i>
+                                    </div>
+                                }
+                                <div class="card-body">
+                                    <h6 class="card-title">@product.ProductName</h6>
+                                    <p class="card-text text-success fw-bold">@product.Price.ToString("C")</p>
+                                    <p class="card-text small text-muted">
+                                        @(product.Description?.Length > 80 ? product.Description.Substring(0, 80) + "..." : product.Description)
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="badge bg-@(product.StockAvailable > 0 ? "success" : "danger")">
+                                            @(product.StockAvailable > 0 ? "In Stock" : "Out of Stock")
+                                        </span>
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Customer") && product.StockAvailable > 0)
+                                        {
+                                            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                                                <input type="hidden" name="productId" value="@product.RowKey" />
+                                                <input type="hidden" name="quantity" value="1" />
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4">
+                    <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">No products available at the moment.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center py-4">
+                        <h3>Ready to Start Shopping?</h3>
+                        <p class="mb-3">Join thousands of happy customers today!</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a asp-controller="Login" asp-action="Register" class="btn btn-light btn-lg">
+                                <i class="fas fa-user-plus"></i> Create Account
+                            </a>
+                            <a asp-controller="Login" asp-action="Index" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Quick Links -->
+    <div class="row mt-5">
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-envelope fa-2x text-info mb-3"></i>
+                    <h5>Contact Us</h5>
+                    <p class="text-muted">Have questions? We're here to help!</p>
+                    <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-info">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-shield-alt fa-2x text-success mb-3"></i>
+                    <h5>Privacy & Security</h5>
+                    <p class="text-muted">Your data is safe with us</p>
+                    <a asp-controller="Home" asp-action="Privacy" class="btn btn-outline-success">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-shipping-fast fa-2x text-warning mb-3"></i>
+                    <h5>Fast Delivery</h5>
+                    <p class="text-muted">Quick and reliable shipping</p>
+                    <a href="#" class="btn btn-outline-warning">Delivery Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

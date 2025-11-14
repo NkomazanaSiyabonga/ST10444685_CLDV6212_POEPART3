@@ -1,0 +1,228 @@
+﻿@model IEnumerable<ABCRetailers.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2 class="mb-4">Products</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">
+        <i class="fas fa-plus"></i> Add Product
+    </a>
+}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+
+                @if (!string.IsNullOrEmpty(item.ProductImageUrl))
+                {
+                    <img src="@item.ProductImageUrl" class="card-img-top" alt="@item.ProductName" style="height:200px; object-fit:cover;" />
+                }
+                else
+                {
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height:200px;">
+                        <i class="fas fa-image fa-3x text-muted"></i>
+                    </div>
+                }
+
+                <div class="card-body">
+                    <h5 class="card-title">@item.ProductName</h5>
+                    <p class="card-text text-truncate">@item.Description</p>
+                    <p class="mb-1"><strong>Price:</strong> @item.Price.ToString("C")</p>
+                    <p>
+                        <strong>Stock:</strong>
+                        <span class="badge bg-@(item.StockAvailable > 10 ? "success" : item.StockAvailable > 0 ? "warning" : "danger")">
+                            @item.StockAvailable
+                        </span>
+                    </p>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between">
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <!-- FIX: Controller expects rowKey -->
+                        <a asp-action="Edit" asp-route-rowKey="@item.RowKey" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    }
+                    else
+                    {
+                        <span></span> <!-- maintains layout -->
+                    }
+
+                    <div>
+                        <!-- Add to Cart Button (Customers only) -->
+                        @if (User.IsInRole("Customer") && item.StockAvailable > 0)
+                        {
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline me-2">
+    <input type="hidden" name="productId" value="@item.RowKey" />
+    <input type="hidden" name="quantity" value="1" />
+    <button type="submit" class="btn btn-sm btn-success add-to-cart-btn">
+        <i class="fas fa-cart-plus"></i> Add to Cart
+    </button>
+</form>
+                        }
+                        else if (User.IsInRole("Customer"))
+                        {
+                            <button class="btn btn-sm btn-secondary" disabled>
+                                <i class="fas fa-cart-plus"></i> Out of Stock
+                            </button>
+                        }
+
+                        <!-- Admin Delete -->
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <!-- FIX: Controller expects rowKey -->
+                            <form asp-action="Delete" asp-route-rowKey="@item.RowKey" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('Are you sure you want to delete this product?');">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            console.log("Cart script loaded"); // Debug line
+
+            // AJAX Add to Cart - FIXED VERSION
+            $(document).on('submit', 'form[action*="Cart"]', function (e) {
+                e.preventDefault();
+                console.log("Add to cart form submitted"); // Debug line
+                
+                var form = $(this);
+                var button = form.find('button[type="submit"]');
+                var originalText = button.html();
+                var productName = form.closest('.card').find('.card-title').text().trim();
+
+                button.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Adding...');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    dataType: 'json', // Explicitly expect JSON
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (response) {
+                        console.log("AJAX success:", response); // Debug line
+                        if (response.success) {
+                            showSuccessMessage('"' + productName + '" added to cart successfully!');
+                        } else {
+                            showErrorMessage(response.message || 'Failed to add product to cart');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("AJAX error:", error); // Debug line
+                        showErrorMessage('Error adding product to cart. Please try again.');
+                    },
+                    complete: function () {
+                        setTimeout(function () {
+                            button.prop('disabled', false).html('<i class="fas fa-cart-plus"></i> Add to Cart');
+                        }, 1500);
+                    }
+                });
+            });
+
+            // Show beautiful success message
+            function showSuccessMessage(message) {
+                // Remove any existing messages
+                $('.custom-alert').remove();
+                
+                var alertHtml = `
+                    <div class="custom-alert alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-5" 
+                         style="z-index: 9999; min-width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" role="alert">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle fa-2x me-3"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="alert-heading mb-1">Success!</h5>
+                                <p class="mb-0">${message}</p>
+                            </div>
+                            <button type="button" class="btn-close ms-3" data-bs-dismiss="alert"></button>
+                        </div>
+                    </div>
+                `;
+                
+                $('body').append(alertHtml);
+                
+                // Auto-remove after 4 seconds
+                setTimeout(() => {
+                    $('.custom-alert').alert('close');
+                }, 4000);
+            }
+
+            // Show beautiful error message
+            function showErrorMessage(message) {
+                // Remove any existing messages
+                $('.custom-alert').remove();
+                
+                var alertHtml = `
+                    <div class="custom-alert alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-5" 
+                         style="z-index: 9999; min-width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" role="alert">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle fa-2x me-3"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="alert-heading mb-1">Oops!</h5>
+                                <p class="mb-0">${message}</p>
+                            </div>
+                            <button type="button" class="btn-close ms-3" data-bs-dismiss="alert"></button>
+                        </div>
+                    </div>
+                `;
+                
+                $('body').append(alertHtml);
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    $('.custom-alert').alert('close');
+                }, 5000);
+            }
+        });
+    </script>
+
+    <style>
+        .custom-alert {
+            border-radius: 12px;
+            border: none;
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        .custom-alert .alert-heading {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        @@keyframes slideInDown {
+            from {
+                transform: translate(-50%, -100%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "PartitionKey": "ORDERS",
+    "RowKey": "16d073cb-d82c-4a2f-9c1f-28026c5d777c",
+    "Timestamp": null,
+    "ETag": null,
+    "OrderId": "16d073cb-d82c-4a2f-9c1f-28026c5d777c",
+    "CustomerId": "customer1",
+    "Username": "customer1",
+    "OrderDate": "2025-11-14T03:32:29.4509876Z",
+    "TotalAmount": 2099.97,
+    "Status": "Completed",
+    "OrderItemsJson": "[{\u0022ProductId\u0022:\u0022ec59f73a-9c12-4436-9f5e-468d6445b62b\u0022,\u0022ProductName\u0022:\u0022Smartphone\u0022,\u0022Quantity\u0022:3,\u0022UnitPrice\u0022:699.99,\u0022TotalPrice\u0022:2099.97,\u0022ImageUrl\u0022:\u0022\u0022}]",
+    "OrderItems": [
+      {
+        "ProductId": "ec59f73a-9c12-4436-9f5e-468d6445b62b",
+        "ProductName": "Smartphone",
+        "Quantity": 3,
+        "UnitPrice": 699.99,
+        "TotalPrice": 2099.97,
+        "ImageUrl": ""
+      }
+    ],
+    "ShippingAddress": "Address not provided",
+    "CustomerEmail": "customer1@abcretailers.com",
+    "ProductId": "ec59f73a-9c12-4436-9f5e-468d6445b62b",
+    "ProductName": "Smartphone",
+    "Quantity": 3,
+    "UnitPrice": 699.99,
+    "TotalPrice": 2099.97
+  },
+  {
+    "PartitionKey": "ORDERS",
+    "RowKey": "a97952b9-660f-4dde-9cbc-80d31d590f26",
+    "Timestamp": null,
+    "ETag": null,
+    "OrderId": "a97952b9-660f-4dde-9cbc-80d31d590f26",
+    "CustomerId": "customer1",
+    "Username": "customer1",
+    "OrderDate": "2025-11-14T06:37:45.2381873Z",
+    "TotalAmount": 499.95,
+    "Status": "Cancelled",
+    "OrderItemsJson": "[{\u0022ProductId\u0022:\u0022cb8bf048-77d3-4259-8df7-4d82c1bc606d\u0022,\u0022ProductName\u0022:\u0022Wireless Headphones\u0022,\u0022Quantity\u0022:5,\u0022UnitPrice\u0022:99.99,\u0022TotalPrice\u0022:499.95,\u0022ImageUrl\u0022:\u0022\u0022}]",
+    "OrderItems": [
+      {
+        "ProductId": "cb8bf048-77d3-4259-8df7-4d82c1bc606d",
+        "ProductName": "Wireless Headphones",
+        "Quantity": 5,
+        "UnitPrice": 99.99,
+        "TotalPrice": 499.95,
+        "ImageUrl": ""
+      }
+    ],
+    "ShippingAddress": "Address not provided",
+    "CustomerEmail": "customer1@abcretailers.com",
+    "ProductId": "cb8bf048-77d3-4259-8df7-4d82c1bc606d",
+    "ProductName": "Wireless Headphones",
+    "Quantity": 5,
+    "UnitPrice": 99.99,
+    "TotalPrice": 499.95
+  },
+  {
+    "PartitionKey": "ORDERS",
+    "RowKey": "66d5211f-1216-4034-b29c-2d2e2212c7b6",
+    "Timestamp": null,
+    "ETag": null,
+    "OrderId": "66d5211f-1216-4034-b29c-2d2e2212c7b6",
+    "CustomerId": "customer1",
+    "Username": "customer1",
+    "OrderDate": "2025-11-14T16:35:35.6710136Z",
+    "TotalAmount": 599.98,
+    "Status": "Submitted",
+    "OrderItemsJson": "[{\u0022ProductId\u0022:\u0022f3a8efb2-331e-46e2-9852-eef42b2aae8e\u0022,\u0022ProductName\u0022:\u0022Raf Simmons Sneakers\u0022,\u0022Quantity\u0022:2,\u0022UnitPrice\u0022:299.99,\u0022TotalPrice\u0022:599.98,\u0022ImageUrl\u0022:\u0022/images/placeholder-product.jpg\u0022}]",
+    "OrderItems": [
+      {
+        "ProductId": "f3a8efb2-331e-46e2-9852-eef42b2aae8e",
+        "ProductName": "Raf Simmons Sneakers",
+        "Quantity": 2,
+        "UnitPrice": 299.99,
+        "TotalPrice": 599.98,
+        "ImageUrl": "/images/placeholder-product.jpg"
+      }
+    ],
+    "ShippingAddress": "Address not provided",
+    "CustomerEmail": "customer1@abcretailers.com",
+    "ProductId": "f3a8efb2-331e-46e2-9852-eef42b2aae8e",
+    "ProductName": "Raf Simmons Sneakers",
+    "Quantity": 2,
+    "UnitPrice": 299.99,
+    "TotalPrice": 599.98
+  },
+  {
+    "PartitionKey": "ORDERS",
+    "RowKey": "5a8575d3-c121-4901-a6e9-a0f8f3fb0ea8",
+    "Timestamp": null,
+    "ETag": null,
+    "OrderId": "5a8575d3-c121-4901-a6e9-a0f8f3fb0ea8",
+    "CustomerId": "70ee729a-d0ab-468f-aba6-49a56fdbc560",
+    "Username": "Customer001",
+    "OrderDate": "2025-11-14T19:15:44.1529417Z",
+    "TotalAmount": 3400.00,
+    "Status": "Completed",
+    "OrderItemsJson": "[{\u0022ProductId\u0022:\u00224eb3c8eb-7347-4813-9d65-4b6f9d9fc466\u0022,\u0022ProductName\u0022:\u0022Maison Margiela Shoes\u0022,\u0022Quantity\u0022:4,\u0022UnitPrice\u0022:850.00,\u0022TotalPrice\u0022:3400.00,\u0022ImageUrl\u0022:\u0022/images/placeholder-product.jpg\u0022}]",
+    "OrderItems": [
+      {
+        "ProductId": "4eb3c8eb-7347-4813-9d65-4b6f9d9fc466",
+        "ProductName": "Maison Margiela Shoes",
+        "Quantity": 4,
+        "UnitPrice": 850.00,
+        "TotalPrice": 3400.00,
+        "ImageUrl": "/images/placeholder-product.jpg"
+      }
+    ],
+    "ShippingAddress": "987 Train Road, Johannesburg",
+    "CustomerEmail": "Chrislee@gmail.com",
+    "ProductId": "4eb3c8eb-7347-4813-9d65-4b6f9d9fc466",
+    "ProductName": "Maison Margiela Shoes",
+    "Quantity": 4,
+    "UnitPrice": 850.00,
+    "TotalPrice": 3400.00
+  }
+]

@@ -1,0 +1,103 @@
+﻿@model ABCRetailers.Models.Order
+
+<div class="row">
+    <div class="col-md-6">
+        <h6>Order Information</h6>
+        <dl class="row">
+            <dt class="col-sm-4">Order ID:</dt>
+            <dd class="col-sm-8"><code>@Model.OrderId</code></dd>
+
+            <dt class="col-sm-4">Order Date:</dt>
+            <dd class="col-sm-8">@Model.OrderDate.ToString("MMM dd, yyyy hh:mm tt")</dd>
+
+            <dt class="col-sm-4">Status:</dt>
+            <dd class="col-sm-8">
+                <span class="badge bg-@GetStatusBadgeClass(Model.Status)">
+                    @Model.Status
+                </span>
+            </dd>
+
+            <dt class="col-sm-4">Total Amount:</dt>
+            <dd class="col-sm-8"><strong>@Model.TotalAmount.ToString("C")</strong></dd>
+        </dl>
+    </div>
+
+    <div class="col-md-6">
+        <h6>Customer Information</h6>
+        <dl class="row">
+            <dt class="col-sm-4">Username:</dt>
+            <dd class="col-sm-8">@Model.Username</dd>
+
+            <dt class="col-sm-4">Email:</dt>
+            <dd class="col-sm-8">@Model.CustomerEmail</dd>
+
+            @if (!string.IsNullOrEmpty(Model.ShippingAddress))
+            {
+                <dt class="col-sm-4">Shipping Address:</dt>
+                <dd class="col-sm-8">@Model.ShippingAddress</dd>
+            }
+        </dl>
+    </div>
+</div>
+
+<hr>
+
+<h6>Order Items</h6>
+@if (Model.OrderItems.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td>
+                            <div>
+                                <strong>@item.ProductName</strong>
+                                @if (!string.IsNullOrEmpty(item.ProductId))
+                                {
+                                    <br>
+                                    <small class="text-muted">ID: @item.ProductId</small>
+                                }
+                            </div>
+                        </td>
+                        <td>@item.Quantity</td>
+                        <td>@item.UnitPrice.ToString("C")</td>
+                        <td>@item.TotalPrice.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="table-success">
+                    <td colspan="3" class="text-end"><strong>Grand Total:</strong></td>
+                    <td><strong>@Model.TotalAmount.ToString("C")</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No order items found.
+    </div>
+}
+
+@{
+    string GetStatusBadgeClass(string status) => status?.ToLower() switch
+    {
+        "submitted" => "primary",
+        "processing" => "info",
+        "completed" => "success",
+        "cancelled" => "danger",
+        _ => "secondary"
+    };
+}

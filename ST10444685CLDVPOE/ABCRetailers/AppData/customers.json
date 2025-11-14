@@ -1,0 +1,67 @@
+[
+  {
+    "PartitionKey": "CUSTOMER",
+    "RowKey": "8150c1dc-5547-46ed-9135-30abdb4c7f11",
+    "Timestamp": null,
+    "ETag": "*",
+    "ETagString": "*",
+    "CustomerId": "5784a14b-185b-45fd-b667-00e4b612e45a",
+    "Name": "Taylor",
+    "Surname": "Lee",
+    "Username": "customer5",
+    "Email": "taylorlee2@gmail.com",
+    "ShippingAddress": "1 Peter Road, Johannesburg"
+  },
+  {
+    "PartitionKey": "CUSTOMER",
+    "RowKey": "customer1",
+    "Timestamp": null,
+    "ETag": "*",
+    "ETagString": "*",
+    "CustomerId": "a2256cda-6469-4946-82f5-4e20c11cb120",
+    "Name": "Customer",
+    "Surname": "User",
+    "Username": "customer1",
+    "Email": "customer1@abcretailers.com",
+    "ShippingAddress": "Address not provided"
+  },
+  {
+    "PartitionKey": "CUSTOMER",
+    "RowKey": "03549583-3ce9-4e5e-9920-0f1e1d52eab9",
+    "Timestamp": null,
+    "ETag": "*",
+    "ETagString": "*",
+    "CustomerId": "5e911c7b-cc76-4b87-91fb-a65f051feea8",
+    "Name": "John",
+    "Surname": "Brown",
+    "Username": "customer15",
+    "Email": "johnnybrown@gmail.com",
+    "ShippingAddress": "1234 Blue Street"
+  },
+  {
+    "PartitionKey": "CUSTOMER",
+    "RowKey": "5971fc78-7269-4425-84ed-f90c9c6082a0",
+    "Timestamp": null,
+    "ETag": "*",
+    "ETagString": "*",
+    "CustomerId": "d65ce8eb-5fb5-4b20-9201-4e1fe4196e21",
+    "Name": "John",
+    "Surname": "Doe",
+    "Username": "Admin001",
+    "Email": "johndoe@icloud.com",
+    "ShippingAddress": "123 Orange Street"
+  },
+  {
+    "PartitionKey": "CUSTOMER",
+    "RowKey": "70ee729a-d0ab-468f-aba6-49a56fdbc560",
+    "Timestamp": null,
+    "ETag": null,
+    "ETagString": "",
+    "CustomerId": "e5aa4949-e8a7-4643-9fbd-f3e75aac5e90",
+    "Name": "Chris",
+    "Surname": "Lee",
+    "Username": "Customer001",
+    "Email": "Chrislee@gmail.com",
+    "ShippingAddress": "987 Train Road, Johannesburg"
+  }
+]
